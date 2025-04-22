@@ -1,0 +1,1 @@
+Blackjack. 5 card charlie and dealer hits on soft 17.
