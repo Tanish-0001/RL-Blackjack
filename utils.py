@@ -22,6 +22,15 @@ def get_game_state_sparse(game: Game) -> torch.Tensor:
 
 
 def get_game_state(game: Game) -> torch.Tensor:
+    """
+    Returns the featurized game state. A less sparse representation of the game state, assuming five card charlie rule.
+    Args:
+        game: a blackjack game instance
+
+    Returns:
+        torch.Tensor: A 6 dimensional vector representing the featurized game state where the first 5 elements
+        encode the player's hand and the next 1 encodes the dealer's face-up card.
+    """
 
     features = ([(card.index / 52) for card in game.player_hand] +
                 [0.] * (5 - len(game.player_hand)) +
