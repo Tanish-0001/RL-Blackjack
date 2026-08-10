@@ -1,8 +1,8 @@
 import torch
-from blackjack import Game
+from blackjack import Environment
 
 
-def get_game_state_sparse(game: Game) -> torch.Tensor:
+def get_game_state_sparse(env: Environment) -> torch.Tensor:
     """
     Returns the featurized game state.
 
@@ -12,16 +12,16 @@ def get_game_state_sparse(game: Game) -> torch.Tensor:
 
     """
     features = torch.zeros(size=(104,), dtype=torch.float32)
-    for card in game.player_hand:
+    for card in env.player_hand:
         features[card.index] = 1.
 
-    dealer_face_up = game.dealer_hand[0]
+    dealer_face_up = env.dealer_hand[0]
     features[52 + dealer_face_up.index] = 1.
 
     return features
 
 
-def get_game_state(game: Game) -> torch.Tensor:
+def get_game_state(env: Environment) -> torch.Tensor:
     """
     Returns the featurized game state. A less sparse representation of the game state, assuming five card charlie rule.
     Args:
@@ -32,14 +32,14 @@ def get_game_state(game: Game) -> torch.Tensor:
         encode the player's hand and the next 1 encodes the dealer's face-up card.
     """
 
-    features = ([(card.index / 52) for card in game.player_hand] +
-                [0.] * (5 - len(game.player_hand)) +
-                [(game.dealer_hand[0].index / 52)])
+    features = ([(card.index / 52) for card in env.player_hand] +
+                [0.] * (5 - len(env.player_hand)) +
+                [(env.dealer_hand[0].index / 52)])
 
     return torch.tensor(features, dtype=torch.float32)
 
 
 if __name__ == "__main__":
-    game = Game()
-    print(get_game_state_sparse(game))
-    print(get_game_state(game))
+    env = Environment()
+    print(get_game_state_sparse(env))
+    print(get_game_state(env))

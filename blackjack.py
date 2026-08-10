@@ -1,7 +1,7 @@
 from deck import Card, Deck
 
 
-class Game:
+class Environment:
     """
     Creates the blackjack game environment. Each game starts with a fresh deck of cards.
     """
@@ -13,7 +13,7 @@ class Game:
         self.score = 0
         self.five_card_charlie = five_card_charlie
 
-    def take_action(self, action: str) -> None:
+    def step(self, action: str) -> None:
         """
         Takes an action and updates the environment.
 
@@ -86,16 +86,16 @@ class Game:
 if __name__ == '__main__':
     hand = [Card("S", 1), Card("H", 7), Card("C", 2)]
     print(*hand)
-    print(Game.evaluate_hand(hand))
+    print(Environment.evaluate_hand(hand))
     for _ in range(5):
-        game = Game()
-        print(*game.player_hand)
-        print(*game.dealer_hand)
+        env = Environment()
+        print(*env.player_hand)
+        print(*env.dealer_hand)
 
-        while not game.is_over:
+        while not env.is_over:
             action = input("ACTION: ")
-            game.take_action(action)
-            print(*game.player_hand)
+            env.step(action)
+            print(*env.player_hand)
 
-        print(f"Dealer hand:", *game.dealer_hand)
-        print(game.score)
+        print(f"Dealer hand:", *env.dealer_hand)
+        print(env.score)
