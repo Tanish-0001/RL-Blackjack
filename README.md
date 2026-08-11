@@ -14,6 +14,8 @@ Greedy policies were evaluated over 10,000 freshly shuffled games with five-card
 | Agent | Win rate |
 | --- | ---: |
 | DQN | **41.52%** |
-| Tabular Q-learning | **44.36%** |
+| Tabular Q-learning | **44.90%** |
+
+The Tabular Q-learning agent's learned strategy was compared with the standard single-deck blackjack strategy for the starting position. Out of 550 starting states, there were 8 states where the agent's strategy disagreed with the heuristic strategy. Both strategy's win-rates were quite similar, with the agents beating heuristic by 0.367%.
 
 Run `play_blackjack.py` to play interactively against the dealer. The training implementations are in `RL_player.ipynb` and `QTable_player.ipynb`.
